@@ -1,0 +1,10 @@
+# dataset defaults
+alg: vicreg
+aug_type: asymmetric
+optimizer: LARS
+base_lr: 0.3
+weight_decay: 1e-4
+mlp: "2048-2048-512"
+sim-coeff: 25.0
+std-coeff: 25.0
+cov-coeff: 1.0

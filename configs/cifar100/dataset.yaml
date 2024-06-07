@@ -1,0 +1,16 @@
+# dataset defaults
+dataset: cifar100
+data_dir: "/datasets01/cifar100/022818/data/"
+n_classes: 100  # Binary label split over two classes: p, 1-p
+image_shape: [3, 32, 32]
+
+# arch and optimization
+arch: resnet18
+batch_size: 256
+epochs: 1000
+warm_up_epochs: 10
+
+# logging
+ckpt_freq: 5
+log_freq: 10
+eval_freq: 50

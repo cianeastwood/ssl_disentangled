@@ -1,0 +1,8 @@
+# dataset defaults
+alg: simclr
+aug_type: symmetric
+optimizer: LARS
+base_lr: 0.4
+weight_decay: 1e-4
+mlp: "2048-256"
+temperature: 0.2

@@ -1,0 +1,54 @@
+# dataset defaults
+dataset: colordsprites
+data_dir: "/private/home/ceastwood/datasets/dsprites/"
+n_classes: 3  # Binary label split over two classes: p, 1-p
+image_shape: [3, 64, 64]
+
+# arch and optimization
+arch: resnet18
+batch_size: 128
+epochs: 50
+warm_up_epochs: 5
+warm_up_epochs_lambda: 5
+
+# logging
+ckpt_freq: 1
+log_freq: 0.1
+eval_freq: 0.5
+
+# augmentations/transformations
+aug_params: { 
+    scale: {            # s = factor used by Pad (zoom out) and CentreCrop (zoom in).
+        weak: 1.5,      # Sample factor x_s ~ Bern([z_{out}, z_{in}],[0.5, 0.5]), where
+        medium: 2.,     # z_{out} ~ U(0, 0.1*(s - 1)), z_{in} ~ U(1, s)
+        strong: 3.,     # see augmentations.py for exact usage.
+        strongest: 4.,
+    },
+    color: {
+        weak: {"brightness": 0.2, "saturation": 0.2, "contrast": 0.2, "hue": 0.1, "p": 0.8, "gray_p": 0.},
+        medium: {"brightness": 0.4, "saturation": 0.4, "contrast": 0.4, "hue": 0.3, "p": 1., "gray_p": 0.2},
+        strong: {"brightness": 0.6, "saturation": 0.6, "contrast": 0.6, "hue": 0.5, "p": 1., "gray_p": 0.2},
+        strongest: {"brightness": 0.8, "saturation": 0.8, "contrast": 0.8, "hue": 0.5, "p": 1., "gray_p": 0.2},
+    },
+    rotation: {     # degrees: # r ~ U(-X, X) 
+        weak: {"p": 0.5, "degrees": 20},             
+        medium: {"p": 0.5, "degress": 60},  
+        strong: {"p": 0.5, "degrees": 180},  
+    },
+    transl: {       # max fraction for horiz. and vert. translations. t_x ~ U(-image_width * x, image_width * x).
+        weak: {"x": 0.15, "y": 0.15},
+        medium: {"x": 0.2, "y": 0.2},
+        strong: {"x": 0.25, "y": 0.25},
+    },
+    norm: {
+      "mean": [0.0233, 0.0210, 0.0184], 
+      "std": [0.128, 0.106, 0.105],
+    }
+}
+
+# slurm defaults for dataset
+nodes: 1
+gpus_per_node: 2
+cpus_per_task: 10
+mem_per_gpu: 80                   # entire dataset loaded into RAM
+time: 600                         # max time for jobs: 600 minutes = 10 hours

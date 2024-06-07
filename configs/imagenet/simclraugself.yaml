@@ -1,0 +1,13 @@
+# dataset defaults
+alg: simclraugself
+aug_type: asymmetric
+optimizer: LARS
+base_lr: 0.5            # 0.3=original, 0.5=suggested
+weight_decay: 1e-6
+mlp: "8192-8192-2048"   # 2048-256=original, 8192-8192-256=suggested, 8192-8192-8192=same_as_vicreg/bts
+temperature: 0.15
+
+# Adaptive lambda
+lambd: 1.0                # = 1 for default SimCLR
+# base_lr_lambda: 0.05    # = base_lr / 10 by default
+# tolerance: 0.001

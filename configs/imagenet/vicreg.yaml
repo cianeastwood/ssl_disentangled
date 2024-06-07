@@ -1,0 +1,15 @@
+# dataset defaults
+alg: vicreg
+aug_type: asymmetric
+optimizer: LARS
+base_lr: 0.3
+weight_decay: 1e-6
+mlp: "8192-8192-2048"     # "8192-8192-8192"=original
+sim_coeff: 25.0
+std_coeff: 25.0
+cov_coeff: 1.0
+
+# Adaptive lambda
+lambd: 25.0               # = sim-coeff = 25 for default VICReg
+# base_lr_lambda: 0.03    # = base_lr / 10 by default
+# tolerance: 0.001

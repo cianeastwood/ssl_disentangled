@@ -1,0 +1,111 @@
+# dataset defaults
+dataset: imagenet
+data_dir: "/datasets01/imagenet_full_size/061417"
+data_dir_blurred: "/checkpoint/marksibrahim/datasets/imagenet_blurred"
+n_classes: 1000  # Binary label split over two classes: p, 1-p
+image_shape: [3, 224, 224]
+
+# arch and optimization
+arch: resnet50
+batch_size: 512
+epochs: 100
+warm_up_epochs: 10
+# warm_up_epochs_lambda: 10
+
+# logging
+ckpt_freq: 1
+log_freq: 0.5
+eval_freq: 5
+
+# slurm defaults for dataset
+nodes: 1
+gpus_per_node: 8
+cpus_per_task: 10
+mem_per_gpu: 30                   # 30 * gpus_per_node
+
+# augmentations/transformations: medium=default
+aug_params: {
+    # Shared for symmetric and asymmetric 
+    scale: {     
+        enabled: True,       
+        weak: [0.25, 1.],      
+        medium: [0.08, 1.],     
+        strong: [0.04, 1.],     
+    },
+    scale_constr: {     
+        enabled: True,
+        weak: [0.9, 1.1],
+        medium: [0.6, 1.4],   
+        strong: [0.5, 1.5],
+    },
+    flip_p: {
+        enabled: True,
+        weak: 0.2,
+        medium: 0.5,
+        strong: 0.5,
+    },
+    rotation: {     # degrees: # r ~ U(-X, X) 
+        enabled: False,
+        weak: {p: 0.5, angle: 20},             
+        medium: {p: 0.5, angle: 40},  
+        strong: {p: 0.5, angle: 60},  
+    },
+    norm: {
+      mean: [0.485, 0.456, 0.406],
+      std: [0.229, 0.224, 0.225],
+    },
+    # symmetric only
+    symmetric: {
+        color: {
+            enabled: True,
+            weak: {brightness: 0.4, saturation: 0.4, contrast: 0.4, hue: 0.1, p: 0.8, gray_p: 0.1},
+            medium: {brightness: 0.8, saturation: 0.8, contrast: 0.8, hue: 0.2, p: 0.8, gray_p: 0.2},
+            strong: {brightness: 0.8, saturation: 0.8, contrast: 0.8, hue: 0.5, p: 1., gray_p: 0.25},
+        },
+        blur_p: {
+            enabled: True,
+            weak: 0.25,
+            medium: 0.5,
+            strong: 0.5,
+        },
+        solarization_p: {
+            enabled: False,
+            weak: 0.,
+            medium: 0.1,
+            strong: 0.2,
+        },
+        equalization_p: {
+            enabled: False,
+            weak: 0.,
+            medium: 0.1,
+            strong: 0.2,
+        },
+    },
+    # asymmetric only (saturation=0.2/0.4 in different implementations)
+    asymmetric: {
+        color: {
+            enabled: True,
+            weak: {brightness: 0.2, saturation: 0.2, contrast: 0.2, hue: 0.1, p: 0.8, gray_p: 0.1},
+            medium: {brightness: 0.4, saturation: 0.2, contrast: 0.4, hue: 0.1, p: 0.8, gray_p: 0.2},
+            strong: {brightness: 0.8, saturation: 0.4, contrast: 0.8, hue: 0.5, p: 1., gray_p: 0.25},
+        },
+        blur_p: {
+            enabled: True,
+            weak: [1.0, 0.1],
+            medium: [1.0, 0.1],
+            strong: [1.0, 0.1],
+        },
+        solarization_p: {
+            enabled: True,
+            weak: [0., 0.1],
+            medium: [0., 0.2],
+            strong: [0., 0.3],
+        },
+        equalization_p: {
+            enabled: False,
+            weak: [0., 0.1],
+            medium: [0., 0.2],
+            strong: [0., 0.3],
+        },
+    },
+}

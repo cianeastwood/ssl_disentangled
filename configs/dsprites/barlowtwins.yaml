@@ -1,0 +1,8 @@
+# dataset defaults
+alg: barlowtwins
+aug_type: asymmetric
+optimizer: LARS
+base_lr: 0.3
+weight_decay: 1e-6
+mlp: "2048-2048-512"
+lambd: 0.0051

@@ -1,0 +1,20 @@
+# dataset defaults
+dataset: dsprites
+data_dir: "/private/home/ceastwood/datasets/dsprites/"
+n_classes: 3  # Binary label split over two classes: p, 1-p
+image_shape: [1, 64, 64]
+
+# arch and optimization
+arch: resnet18
+batch_size: 256
+epochs: 20
+
+# logging
+ckpt_freq: 1
+log_freq: 0.1
+eval_freq: 0.5
+
+# slurm defaults for dataset
+nodes: 1
+gpus_per_node: 2
+cpus_per_task: 10

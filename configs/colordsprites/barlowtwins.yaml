@@ -1,0 +1,13 @@
+# dataset defaults
+alg: barlowtwins
+aug_type: asymmetric
+optimizer: LARS
+base_lr: 0.3
+weight_decay: 1e-6
+mlp: "2048-2048-512"
+lambd_bts: 0.0051
+
+# Adaptive lambda
+lambd: 1.0              # = 1 for default BTs
+base_lr_lambda: 0.01    # = base_lr / 10 by default
+tolerance: 0.001        

@@ -1,0 +1,21 @@
+# dataset defaults
+dataset: trifeature
+data_dir: "/private/home/ceastwood/datasets/trifeature/"
+n_classes: 10  # Binary label split over two classes: p, 1-p
+image_shape: [3, 96, 96]
+
+# arch and optimization
+arch: resnet18
+batch_size: 128
+epochs: 30
+warm_up_epochs: 5
+
+# logging
+ckpt_freq: 1
+log_freq: 1
+eval_freq: 2
+
+# slurm defaults for dataset
+nodes: 1
+gpus_per_node: 2
+cpus_per_task: 10
